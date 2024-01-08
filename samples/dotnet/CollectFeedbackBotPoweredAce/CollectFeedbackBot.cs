@@ -192,7 +192,7 @@ namespace CollectFeedbackBotPoweredAce
                 }
             }
             Trace.Write("\n\n\nStarted to handle action.\n\n\n");
-            JObject actionParameters = (JObject)((JObject)turnContext.Activity.Value).Property("data").Value;
+            JObject actionParameters = aceRequest.Data as JObject;
 
             if (actionParameters["type"].ToString().Equals("Submit", StringComparison.InvariantCultureIgnoreCase) &&
                 actionParameters["id"].ToString().Equals("SendFeedback", StringComparison.InvariantCultureIgnoreCase))
