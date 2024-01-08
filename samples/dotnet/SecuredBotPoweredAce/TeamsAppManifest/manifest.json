@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.1",
+  "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+  "packageName": "secured.botpoweredace",
+  "developer": {
+    "name": "PiaSys.com",
+    "websiteUrl": "https://www.piasys.com/",
+    "privacyUrl": "http://piasys.com/privacy/",
+    "termsOfUseUrl": "https://www.piasys.com/terms-of-use/",
+    "mpnId": "1075379"
+  },
+  "name": {
+    "short": "Secured Bot Powered ACE",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user and to access Microsoft Graph on her/his own behalf"
+  },
+  "description": {
+    "short": "Basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user and to access Microsoft Graph on her/his own behalf"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+      "needsChannelSelector": false,
+      "isNotificationOnly": false,
+      "supportsCalling": false,
+      "supportsVideo": false,
+      "supportsFiles": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ]
+    }
+  ],
+  "dashboardCards": [
+    {
+      "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+      "displayName": "User's Email",
+      "description": "Bot Powered ACE to access current user's email",
+      "icon": {
+        "officeUIFabricIconName": "Mail"
+      },
+      "contentSource": {
+        "sourceType": "bot",
+        "botConfiguration": {
+          "botId": "74bd94eb-f13b-486f-b99d-ccef78eef7db"
+        }
+      },
+      "defaultSize": "medium"
+    }
+  ],
+  "webApplicationInfo": {
+    "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+    "resource": "api://my-secured-bot-powered-ace.ngrok.io/74bd94eb-f13b-486f-b99d-ccef78eef7db"
+    //"id": "00000003-0000-0ff1-ce00-000000000000",
+    //"resource": "https://{teamSiteDomain}"
+  },
+  "permissions": [
+    "identity"
+  ],
+  "validDomains": [
+    "my-secured-bot-powered-ace.ngrok.io"
+  ]
+}
