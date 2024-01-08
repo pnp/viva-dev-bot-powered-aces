@@ -203,7 +203,7 @@ namespace SecuredBotPoweredAce
 
             AdaptiveTextBlock signInDescriptionText = new AdaptiveTextBlock
             {
-                Text = "Input the magic code from signing into Azure Active Directory in order to continue.",
+                Text = "Input the magic code from Microsoft Entra ID to complete sign in.",
                 Color = AdaptiveTextColor.Dark,
                 Size = AdaptiveTextSize.Default,
                 Wrap = true,
@@ -215,8 +215,7 @@ namespace SecuredBotPoweredAce
             AdaptiveNumberInput signInMagicCodeInputField = new AdaptiveNumberInput
             {
                 Placeholder = "Enter Magic Code",
-                Id = "magicCode",
-                IsRequired = true
+                Id = "magicCode"
             };
             signInContainer.Items.Add(signInMagicCodeInputField);
 
@@ -279,8 +278,7 @@ namespace SecuredBotPoweredAce
                     var signInLink = signInResource != null ? new Uri(signInResource.SignInLink) : new Uri(string.Empty);
 
                     signInCardView.AceData.Properties = Newtonsoft.Json.Linq.JObject.FromObject(new Dictionary<string, object>() {
-                        { "uri", signInLink },
-                        { "connectionName", _connectionName}
+                        { "uri", signInLink }
                     });
                     return signInCardView;
                 }
@@ -357,8 +355,7 @@ namespace SecuredBotPoweredAce
                         var signInLink = signInResource != null ? new Uri(signInResource.SignInLink) : new Uri(string.Empty);
 
                         signInCardView.AceData.Properties = Newtonsoft.Json.Linq.JObject.FromObject(new Dictionary<string, object>() {
-                            { "uri", signInLink },
-                            { "connectionName", _connectionName}
+                            { "uri", signInLink }
                         });
 
                         return new CardViewHandleActionResponse

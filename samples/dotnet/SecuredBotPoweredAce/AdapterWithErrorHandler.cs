@@ -18,15 +18,10 @@ namespace SecuredBotPoweredAce
     public class AdapterWithErrorHandler : CloudAdapter
     {
         public AdapterWithErrorHandler(
-            IConfiguration configuration,
-            IHttpClientFactory httpClientFactory,
             ILogger<IBotFrameworkHttpAdapter> logger,
-            IStorage storage,
             BotFrameworkAuthentication auth)
             : base(auth, logger)
         {
-            base.Use(new TeamsSSOTokenExchangeMiddleware(storage, configuration["ConnectionName"]));
-            
             OnTurnError = async (turnContext, exception) =>
             {
                 // Log any leaked exception from the application.
