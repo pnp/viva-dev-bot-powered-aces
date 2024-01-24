@@ -1,8 +1,0 @@
-https://my-bot-powered-ace.ngrok.io/
-https://my-bot-powered-ace.ngrok.io/api/messages
-https://my-bot-powered-ace.ngrok.io/auth-end
-
-Client ID: ce34ccbc-5a46-44d5-838a-f39fbdb3a477
-Client Secret: -MV8Q~cJXS.d~RCQmXhjggpB-UNOdng3Xv00IcV9
-Tenant ID: 6c94075a-da0a-4c6a-8411-badf652e8b53
-Unique URI: api://my-bot-powered-ace.ngrok.io/ce34ccbc-5a46-44d5-838a-f39fbdb3a477
