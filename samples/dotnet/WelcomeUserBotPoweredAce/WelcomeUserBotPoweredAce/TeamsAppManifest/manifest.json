@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.schema.json",
   "manifestVersion": "1.16",
   "version": "1.0.1",
-  "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+  "id": "fff49e21-925f-4dc9-be03-2680c4783091",
   "packageName": "secured.botpoweredace",
   "developer": {
     "name": "PiaSys.com",
@@ -12,12 +12,12 @@
     "mpnId": "1075379"
   },
   "name": {
-    "short": "Secured Bot Powered ACE",
-    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user and to access Microsoft Graph on her/his own behalf"
+    "short": "Welcome User Bot Powered ACE",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user"
   },
   "description": {
     "short": "Basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user",
-    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user and to access Microsoft Graph on her/his own behalf"
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user"
   },
   "icons": {
     "outline": "icon-outline.png",
@@ -26,7 +26,7 @@
   "accentColor": "#FFFFFF",
   "bots": [
     {
-      "botId": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
+      "botId": "fff49e21-925f-4dc9-be03-2680c4783091",
       "needsChannelSelector": false,
       "isNotificationOnly": false,
       "supportsCalling": false,
@@ -41,29 +41,29 @@
   ],
   "dashboardCards": [
     {
-      "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
-      "displayName": "User's Email",
-      "description": "Bot Powered ACE to access current user's email",
+      "id": "fff49e21-925f-4dc9-be03-2680c4783091",
+      "displayName": "Welcome",
+      "description": "Bot Powered ACE to welcome the current user",
       "icon": {
-        "officeUIFabricIconName": "Mail"
+        "officeUIFabricIconName": "Cafe"
       },
       "contentSource": {
         "sourceType": "bot",
         "botConfiguration": {
-          "botId": "74bd94eb-f13b-486f-b99d-ccef78eef7db"
+          "botId": "fff49e21-925f-4dc9-be03-2680c4783091"
         }
       },
-      "defaultSize": "medium"
+      "defaultSize": "large"
     }
   ],
   "webApplicationInfo": {
-    "id": "74bd94eb-f13b-486f-b99d-ccef78eef7db",
-    "resource": "api://my-secured-bot-powered-ace.ngrok.io/74bd94eb-f13b-486f-b99d-ccef78eef7db"
+    "id": "fff49e21-925f-4dc9-be03-2680c4783091",
+    "resource": "api://welcome-bot-powered-ace.ngrok.io/fff49e21-925f-4dc9-be03-2680c4783091"
   },
   "permissions": [
     "identity"
   ],
   "validDomains": [
-    "my-secured-bot-powered-ace.ngrok.io"
+    "welcome-bot-powered-ace.ngrok.io"
   ]
 }

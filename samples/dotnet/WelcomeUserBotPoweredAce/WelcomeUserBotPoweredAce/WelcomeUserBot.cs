@@ -1,36 +1,31 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-using AdaptiveCards;
-using AdaptiveCards.Templating;
 using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.Bot.Builder.SharePoint;
-using Microsoft.Bot.Connector.Authentication;
 using Microsoft.Bot.Schema;
 using Microsoft.Bot.Schema.SharePoint;
-using Microsoft.Bot.Schema.Teams;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Concurrent;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AdaptiveCards;
+using Newtonsoft.Json.Linq;
+using System.Linq;
+using Microsoft.Bot.Connector.Authentication;
 
-namespace SecuredBotPoweredAce
+namespace WelcomeUserBotPoweredAce
 {
-    public class ShowUserInfoBot : SharePointActivityHandler
+    public class WelcomeUserBot : SharePointActivityHandler
     {
         private static string adaptiveCardExtensionId = Guid.NewGuid().ToString();
         private readonly string _connectionName;
 
         private readonly IConfiguration _configuration;
-        private readonly ILogger<ShowUserInfoBot> _logger;
+        private readonly ILogger<WelcomeUserBot> _logger;
 
         private static ConcurrentDictionary<string, CardViewResponse> cardViews = new ConcurrentDictionary<string, CardViewResponse>();
         private static ConcurrentDictionary<string, QuickViewResponse> quickViews = new ConcurrentDictionary<string, QuickViewResponse>();
@@ -40,11 +35,10 @@ namespace SecuredBotPoweredAce
         private static string SignInCardView_ID = "SIGN_IN_CARD_VIEW";
         private static string SignedOutCardView_ID = "SIGNED_OUT_CARD_VIEW";
         private static string SignInQuickView_ID = "SIGN_IN_QUICK_VIEW";
-        private static string UserEmailsQuickView_ID = "USER_EMAILS_QUICK_VIEW";
 
-        public ShowUserInfoBot(
+        public WelcomeUserBot(
             IConfiguration configuration,
-            ILogger<ShowUserInfoBot> logger) : base()
+            ILogger<WelcomeUserBot> logger) : base()
         {
             this._configuration = configuration;
             this._connectionName = configuration["ConnectionName"];
@@ -58,7 +52,7 @@ namespace SecuredBotPoweredAce
             // Prepare ACE data for all Card Views
             var aceData = new AceData()
             {
-                Title = "Your emails!",
+                Title = "Welcome!",
                 CardSize = AceData.AceCardSize.Large,
                 DataVersion = "1.0",
                 Id = adaptiveCardExtensionId
@@ -74,26 +68,14 @@ namespace SecuredBotPoweredAce
                 },
                 new CardTextComponent()
                 {
-                    Text = "Welcome!"
+                    Text = "Welcome <displayName>!"
                 },
                 new CardTextComponent()
                 {
-                    Text = "You are: <upn>"
+                    Text = "Your UPN is: <upn>"
                 },
                 new List<BaseCardComponent>()
                 {
-                    new CardButtonComponent()
-                    {
-                        Id = "UserEmails",
-                        Title = "Show emails",
-                        Action = new QuickViewAction()
-                        {
-                            Parameters = new QuickViewActionParameters()
-                            {
-                                View = UserEmailsQuickView_ID
-                            }
-                        }
-                    },
                     new CardButtonComponent()
                     {
                         Id = "SignOut",
@@ -103,14 +85,6 @@ namespace SecuredBotPoweredAce
 
                 });
             homeCardViewResponse.ViewId = HomeCardView_ID;
-
-            homeCardViewResponse.OnCardSelection = new QuickViewAction()
-            {
-                Parameters = new QuickViewActionParameters()
-                {
-                    View = UserEmailsQuickView_ID
-                }
-            };
 
             cardViews.TryAdd(homeCardViewResponse.ViewId, homeCardViewResponse);
 
@@ -214,7 +188,7 @@ namespace SecuredBotPoweredAce
             // Add the Quick Views
             // ************************************
 
-            // Sign In Quick View
+            // Complete Sign In Quick View
             QuickViewResponse signInQuickViewResponse = new QuickViewResponse();
             signInQuickViewResponse.Title = "Sign In";
             signInQuickViewResponse.Template = new AdaptiveCard("1.5");
@@ -263,30 +237,6 @@ namespace SecuredBotPoweredAce
             signInQuickViewResponse.ViewId = SignInQuickView_ID;
 
             quickViews.TryAdd(signInQuickViewResponse.ViewId, signInQuickViewResponse);
-
-            // User's Emails Quick View
-            QuickViewResponse userEmailQuickViewResponse = new QuickViewResponse();
-            userEmailQuickViewResponse.Title = "Your email messages";
-            userEmailQuickViewResponse.Template = new AdaptiveCard("1.5");
-
-            AdaptiveContainer userEmailContainer = new AdaptiveContainer();
-            userEmailContainer.Separator = true;
-
-            AdaptiveTextBlock titleText = new AdaptiveTextBlock();
-            titleText.Text = "Please, sign in to see your recent emails ...";
-            titleText.Color = AdaptiveTextColor.Dark;
-            titleText.Weight = AdaptiveTextWeight.Bolder;
-            titleText.Size = AdaptiveTextSize.Large;
-            titleText.Wrap = true;
-            titleText.MaxLines = 1;
-            titleText.Spacing = AdaptiveSpacing.None;
-            userEmailContainer.Items.Add(titleText);
-
-            userEmailQuickViewResponse.Template.Body.Add(userEmailContainer);
-
-            userEmailQuickViewResponse.ViewId = UserEmailsQuickView_ID;
-
-            quickViews.TryAdd(userEmailQuickViewResponse.ViewId, userEmailQuickViewResponse);
         }
 
         protected async override Task<CardViewResponse> OnSharePointTaskGetCardViewAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
@@ -298,13 +248,14 @@ namespace SecuredBotPoweredAce
                 magicCode = aceData["magicCode"].ToString();
             }
             // Check to see if the user has already signed in
-            var user = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
-            if (user != null)
+            var (displayName, upn) = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
+            if (displayName != null && upn != null)
             {
                 var homeCardView = cardViews[HomeCardView_ID];
                 if (homeCardView != null)
                 {
-                    ((homeCardView.CardViewParameters.Body.ToList())[0] as CardTextComponent).Text = $"You are: {user.UserPrincipalName}";
+                    ((homeCardView.CardViewParameters.Header.ToList())[0] as CardTextComponent).Text = $"Welcome {displayName}!";
+                    ((homeCardView.CardViewParameters.Body.ToList())[0] as CardTextComponent).Text = $"Your UPN is: {upn}";
                     return homeCardView;
                 }
             }
@@ -330,27 +281,6 @@ namespace SecuredBotPoweredAce
         protected async override Task<QuickViewResponse> OnSharePointTaskGetQuickViewAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
         {
             var nextQuickViewId = ((JObject)aceRequest.Data)["viewId"].ToString();
-            if (nextQuickViewId == null || nextQuickViewId == UserEmailsQuickView_ID)
-            {
-                var emails = await GetAuthenticatedUserRecentEmails(null, turnContext, cancellationToken);
-                if (emails != null)
-                {
-                    var result = quickViews[UserEmailsQuickView_ID];
-                    result.Template = createDynamicAdaptiveCard(
-                        readQuickViewJson("EmailsQuickView.json"),
-                        new
-                        {
-                            Title = "Here are your recently received emails:",
-                            Emails = (from e in emails
-                                     select new { 
-                                         Date = e.ReceivedDateTime.Value,
-                                         From = e.From?.EmailAddress.Name ?? string.Empty,
-                                         e.Subject 
-                                     }).ToArray()
-                        });
-                    return result;
-                }
-            }
             return quickViews[nextQuickViewId];
         }
 
@@ -371,12 +301,13 @@ namespace SecuredBotPoweredAce
                 if (actionId == "SubmitMagicCode")
                 {
                     var magicCode = actionParameters["data"]["magicCode"].ToString();
-                    var user = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
+                    var (displayName, upn) = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
 
                     var homeCardView = cardViews[HomeCardView_ID];
-                    if (homeCardView != null && user != null)
+                    if (homeCardView != null && displayName != null && upn != null)
                     {
-                        ((homeCardView.CardViewParameters.Body.ToList())[0] as CardTextComponent).Text = $"You are: {user.UserPrincipalName}";
+                        ((homeCardView.CardViewParameters.Header.ToList())[0] as CardTextComponent).Text = $"Welcome {displayName}!";
+                        ((homeCardView.CardViewParameters.Body.ToList())[0] as CardTextComponent).Text = $"Your UPN is: {upn}";
 
                         return new CardViewHandleActionResponse
                         {
@@ -415,44 +346,28 @@ namespace SecuredBotPoweredAce
             };
         }
 
-        private async Task<Microsoft.Graph.Models.User> GetAuthenticatedUser(string magicCode, ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
+        private async Task<(string displayName, string upn)> GetAuthenticatedUser(string magicCode, ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
         {
+            string displayName = null;
+            string upn = null;
+
             try
             {
                 var response = await GetUserToken(magicCode, turnContext, cancellationToken).ConfigureAwait(false);
                 if (response != null && !string.IsNullOrEmpty(response.Token))
                 {
-                    var client = new SimpleGraphClient(response.Token);
-                    return await client.GetMeAsync().ConfigureAwait(false);
+                    var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(response.Token);
+                    displayName = token.Claims.FirstOrDefault(c => c.Type == System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Name)?.Value;
+                    upn = token.Claims.FirstOrDefault(c => c.Type == "upn")?.Value;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while trying to retrieve current user's UPN");
+                _logger.LogError(ex, "Error while trying to retrieve current user's displayName and UPN!");
             }
 
-            return null;
+            return (displayName, upn);
         }
-
-        private async Task<Microsoft.Graph.Models.Message[]> GetAuthenticatedUserRecentEmails(string magicCode, ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
-        {
-            try
-            {
-                var response = await GetUserToken(magicCode, turnContext, cancellationToken).ConfigureAwait(false);
-                if (response != null && !string.IsNullOrEmpty(response.Token))
-                {
-                    var client = new SimpleGraphClient(response.Token);
-                    return await client.GetRecentMailAsync(10);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while trying to retrieve current user's UPN");
-            }
-
-            return null;
-        }
-
 
         private async Task<SignInResource> GetSignInResource(ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
         {
@@ -489,45 +404,6 @@ namespace SecuredBotPoweredAce
                 _connectionName, // The name of your Azure AD connection
                 turnContext.Activity.ChannelId,
                 cancellationToken).ConfigureAwait(false);
-        }
-
-        private string readQuickViewJson(string quickViewTemplateFileName)
-        {
-            string json = null;
-
-            var templatesPath = _configuration["TemplatesPath"];
-            var quickViewTemplatePath = Path.Combine(templatesPath, quickViewTemplateFileName);
-
-            using (StreamReader sr = new StreamReader(quickViewTemplatePath))
-            {
-                json = sr.ReadToEnd();
-            }
-
-            return json;
-        }
-
-        private AdaptiveCard createDynamicAdaptiveCard(string cardJson, object dataSource)
-        {
-            AdaptiveCardTemplate template = new AdaptiveCardTemplate(cardJson);
-            var cardJsonWithData = template.Expand(dataSource);
-
-            // Deserialize the JSON string into an AdaptiveCard object
-            AdaptiveCardParseResult parseResult = AdaptiveCard.FromJson(cardJsonWithData);
-
-            // Check for errors during parsing
-            if (parseResult.Warnings.Count > 0)
-            {
-                Trace.Write("Warnings during parsing:");
-                foreach (var warning in parseResult.Warnings)
-                {
-                    Trace.Write(warning.Message);
-                }
-            }
-
-            // Get the AdaptiveCard object
-            AdaptiveCard card = parseResult.Card;
-
-            return card;
         }
     }
 }
