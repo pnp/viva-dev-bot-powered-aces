@@ -1,10 +1,52 @@
-﻿# CollectFeedbackBotPoweredAce
+﻿# Bot-Powered-ACE Collect Feedback
 
-Bot Framework v4 empty bot sample.
+This sample shows how to create a Viva Connection Adaptive Card Extension (ACE) to collect feedback from users. The ACE has been implemented using a Bot-Powered-ACE based on .NET.
 
-This bot has been created using [Bot Framework](https://dev.botframework.com), it shows the minimum code required to build a bot.
+Here you can see main CardView of the ACE to collect feedback in action:
 
-## Prerequisites
+![Collect feedback CardView](./assets/feedback-ace-01.png)
+
+Here you can see the CardView that confirms feedback collection:
+
+![Feedback collected CardView](./assets/feedback-ace-02.png)
+
+And here you can see the QuickView to give instructions to the user:
+
+![Collect feedback instructions QuickView](./assets/feedback-ace-03.png)
+
+## Used Bot Framework Version
+
+This bot has been created using [Bot Framework](https://dev.botframework.com).
+
+## Applies to
+
+- [Microsoft SharePoint Online](https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration)
+- [Microsoft Viva Connections](https://learn.microsoft.com/en-us/viva/connections/viva-connections-overview)
+
+> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
+
+## Solution
+
+| Solution    | Author(s)                                               |
+| ----------- | ------------------------------------------------------- |
+| CollectFeedbackBotPoweredAce | Paolo Pialorsi Paolo Pialorsi - [PiaSys.com](https://www.piasys.com/) - [@PaoloPia](https://twitter.com/PaoloPia) |
+
+## Version history
+
+| Version | Date             | Comments        |
+| ------- | ---------------- | --------------- |
+| 1.1     | March 06, 2024   | Updated release |
+| 1.0     | December 14, 2023   | Initial release |
+
+## Disclaimer
+
+**THIS CODE IS PROVIDED _AS IS_ WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
+
+---
+
+## Minimal Path to Awesome
+
+### Prerequisites
 
 - [.NET SDK](https://dotnet.microsoft.com/download) version 6.0
 
@@ -13,13 +55,13 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
   dotnet --version
   ```
 
-## To try this sample
+### To try this sample
 
-- In a terminal, navigate to `CollectFeedbackBotPoweredAce`
+- In a terminal, navigate to `BotPowered_BasicAce_CollectFeedback`
 
     ```bash
     # change into project folder
-    cd CollectFeedbackBotPoweredAce
+    cd BotPowered_BasicAce_CollectFeedback
     ```
 
 - Run the bot from a terminal or from Visual Studio, choose option A or B.
@@ -35,27 +77,15 @@ This bot has been created using [Bot Framework](https://dev.botframework.com), i
 
   - Launch Visual Studio
   - File -> Open -> Project/Solution
-  - Navigate to `CollectFeedbackBotPoweredAce` folder
-  - Select `CollectFeedbackBotPoweredAce.csproj` file
+  - Navigate to `BotPowered-BasicAce-CollectFeedback` folder
+  - Select `BotPowered-BasicAce-CollectFeedback.csproj` file
   - Press `F5` to run the project
 
-## Testing the bot using Bot Framework Emulator
-
-[Bot Framework Emulator](https://github.com/microsoft/botframework-emulator) is a desktop application that allows bot developers to test and debug their bots on localhost or running remotely through a tunnel.
-
-- Install the Bot Framework Emulator version 4.3.0 or greater from [here](https://github.com/Microsoft/BotFramework-Emulator/releases)
-
-### Connect to the bot using Bot Framework Emulator
-
-- Launch Bot Framework Emulator
-- File -> Open Bot
-- Enter a Bot URL of `http://localhost:3978/api/messages`
-
-## Deploy the bot to Azure
+### Deploy the bot to Azure
 
 To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](https://aka.ms/azuredeployment) for a complete list of deployment instructions.
 
-## Further reading
+### Further reading
 
 - [Bot Framework Documentation](https://docs.botframework.com)
 - [Bot Basics](https://docs.microsoft.com/azure/bot-service/bot-builder-basics?view=azure-bot-service-4.0)
