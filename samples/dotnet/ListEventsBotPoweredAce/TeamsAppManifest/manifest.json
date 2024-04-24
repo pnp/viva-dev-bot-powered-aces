@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.3",
+  "id": "172934c8-60a6-4913-8193-5a2e572e5603",
+  "packageName": "listevents.botpoweredace",
+  "developer": {
+    "name": "PiaSys.com",
+    "websiteUrl": "https://www.piasys.com/",
+    "privacyUrl": "http://piasys.com/privacy/",
+    "termsOfUseUrl": "https://www.piasys.com/terms-of-use/",
+    "mpnId": "1075379"
+  },
+  "name": {
+    "short": "List user's calendar events ACE",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's calendar events"
+  },
+  "description": {
+    "short": "Basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's calendar events",
+    "full": "Basic sample of how to use the latest release of the Bot Framework SDK to build a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's calendar events"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "172934c8-60a6-4913-8193-5a2e572e5603",
+      "needsChannelSelector": false,
+      "isNotificationOnly": false,
+      "supportsCalling": false,
+      "supportsVideo": false,
+      "supportsFiles": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ]
+    }
+  ],
+  "dashboardCards": [
+    {
+      "id": "172934c8-60a6-4913-8193-5a2e572e5603",
+      "displayName": "Your calendar",
+      "description": "Bot Powered ACE to show user's calendar events",
+      "icon": {
+        "officeUIFabricIconName": "Calendar"
+      },
+      "contentSource": {
+        "sourceType": "bot",
+        "botConfiguration": {
+          "botId": "172934c8-60a6-4913-8193-5a2e572e5603"
+        }
+      },
+      "defaultSize": "medium"
+    }
+  ],
+  "permissions": [
+    "identity"
+  ],
+  "webApplicationInfo": {
+    "id": "172934c8-60a6-4913-8193-5a2e572e5603",
+    "resource": "api://m365-list-events-ace-dev.azurewebsites.net/172934c8-60a6-4913-8193-5a2e572e5603"
+  },
+  "validDomains": [
+    "m365-list-events-ace-dev.azurewebsites.net"
+  ]
+}

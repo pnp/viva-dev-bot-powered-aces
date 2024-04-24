@@ -142,7 +142,7 @@ namespace SecuredBotPoweredAce
                         }
                     }
                 }
-                );
+            );
             signInCardViewResponse.CardViewParameters.CardViewType = "signIn";
             signInCardViewResponse.ViewId = SignInCardView_ID;
 

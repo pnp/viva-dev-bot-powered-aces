@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.3",
+  "id": "ba527606-a94b-46fa-812c-93e698dbe453",
+  "packageName": "listemails.botpoweredace",
+  "developer": {
+    "name": "PiaSys.com",
+    "websiteUrl": "https://www.piasys.com/",
+    "privacyUrl": "http://piasys.com/privacy/",
+    "termsOfUseUrl": "https://www.piasys.com/terms-of-use/",
+    "mpnId": "1075379"
+  },
+  "name": {
+    "short": "List user's emails ACE",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's emails"
+  },
+  "description": {
+    "short": "Basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's emails",
+    "full": "Basic sample of how to use the latest release of the Bot Framework SDK to build a Bot Powered ACE for Microsoft Viva Connections Dashboard to show user's emails"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "ba527606-a94b-46fa-812c-93e698dbe453",
+      "needsChannelSelector": false,
+      "isNotificationOnly": false,
+      "supportsCalling": false,
+      "supportsVideo": false,
+      "supportsFiles": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ]
+    }
+  ],
+  "dashboardCards": [
+    {
+      "id": "ba527606-a94b-46fa-812c-93e698dbe453",
+      "displayName": "Your emails",
+      "description": "Bot Powered ACE to show user's emails",
+      "icon": {
+        "officeUIFabricIconName": "Mail"
+      },
+      "contentSource": {
+        "sourceType": "bot",
+        "botConfiguration": {
+          "botId": "ba527606-a94b-46fa-812c-93e698dbe453"
+        }
+      },
+      "defaultSize": "medium"
+    }
+  ],
+  "permissions": [
+    "identity"
+  ],
+  "webApplicationInfo": {
+    "id": "ba527606-a94b-46fa-812c-93e698dbe453",
+    "resource": "api://m365-list-emails-ace-dev.azurewebsites.net/ba527606-a94b-46fa-812c-93e698dbe453"
+  },
+  "validDomains": [
+    "m365-list-emails-ace-dev.azurewebsites.net"
+  ]
+}
