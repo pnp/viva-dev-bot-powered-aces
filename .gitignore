@@ -500,3 +500,5 @@ dist
 # TernJS port file
 .tern-port
 /samples/BotPowered-BasicAce/appsettings.json
+/samples/dotnet/ListEventsBotPoweredAce/Properties/ServiceDependencies/m365-list-events-ace-dev - Web Deploy/profile.arm.json
+/samples/dotnet/ListEmailsBotPoweredAce/Properties/ServiceDependencies/m365-list-emails-ace-dev - Web Deploy/profile.arm.json
