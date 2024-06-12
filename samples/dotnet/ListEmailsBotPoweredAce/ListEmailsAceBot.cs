@@ -142,7 +142,7 @@ namespace ListEmailsBotPoweredAce
                     }
                 }
             );
-            signInCardViewResponse.CardViewParameters.CardViewType = "signIn";
+            signInCardViewResponse.CardViewParameters.CardViewType = "signInSso";
             signInCardViewResponse.ViewId = SignInCardView_ID;
 
             cardViews.TryAdd(signInCardViewResponse.ViewId, signInCardViewResponse);
@@ -352,6 +352,12 @@ namespace ListEmailsBotPoweredAce
                 }
             }
             return quickViews[nextQuickViewId];
+        }
+
+        protected override Task OnSignInInvokeAsync(ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
+        {
+            SharePointSSOTokenExchangeMiddleware sso = new SharePointSSOTokenExchangeMiddleware(null, this._connectionName);
+            return sso.OnTurnAsync(turnContext, cancellationToken);
         }
 
         protected async override Task<BaseHandleActionResponse> OnSharePointTaskHandleActionAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
