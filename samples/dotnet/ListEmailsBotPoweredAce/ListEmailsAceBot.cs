@@ -535,5 +535,11 @@ namespace ListEmailsBotPoweredAce
 
             return card;
         }
+
+        protected override Task<InvokeResponse> OnInvokeActivityAsync(ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"Invoke OnInvokeActivityAsync with activity name: {turnContext.Activity.Name}");
+            return base.OnInvokeActivityAsync(turnContext, cancellationToken);
+        }
     }
 }

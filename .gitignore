@@ -502,3 +502,5 @@ dist
 /samples/BotPowered-BasicAce/appsettings.json
 /samples/dotnet/ListEventsBotPoweredAce/Properties/ServiceDependencies/m365-list-events-ace-dev - Web Deploy/profile.arm.json
 /samples/dotnet/ListEmailsBotPoweredAce/Properties/ServiceDependencies/m365-list-emails-ace-dev - Web Deploy/profile.arm.json
+/samples/nodejs/collect-feedback-ts/env/.env.dev
+/samples/nodejs/collect-feedback-ts/env/.env.testtool

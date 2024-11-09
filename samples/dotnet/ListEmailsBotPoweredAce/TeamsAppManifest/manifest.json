@@ -1,8 +1,8 @@
 {
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
   "manifestVersion": "1.17",
-  "version": "1.0.3",
-  "id": "ba527606-a94b-46fa-812c-93e698dbe453",
+  "version": "1.0.4",
+  "id": "56ddbfdc-910c-42e0-ac7e-d0f40155c36f",
   "packageName": "listemails.botpoweredace",
   "developer": {
     "name": "PiaSys.com",
@@ -26,7 +26,7 @@
   "accentColor": "#FFFFFF",
   "bots": [
     {
-      "botId": "ba527606-a94b-46fa-812c-93e698dbe453",
+      "botId": "56ddbfdc-910c-42e0-ac7e-d0f40155c36f",
       "needsChannelSelector": false,
       "isNotificationOnly": false,
       "supportsCalling": false,
@@ -41,7 +41,7 @@
   ],
   "dashboardCards": [
     {
-      "id": "ba527606-a94b-46fa-812c-93e698dbe453",
+      "id": "56ddbfdc-910c-42e0-ac7e-d0f40155c36f",
       "displayName": "Your emails",
       "description": "Bot Powered ACE to show user's emails",
       "icon": {
@@ -50,7 +50,7 @@
       "contentSource": {
         "sourceType": "bot",
         "botConfiguration": {
-          "botId": "ba527606-a94b-46fa-812c-93e698dbe453"
+          "botId": "56ddbfdc-910c-42e0-ac7e-d0f40155c36f"
         }
       },
       "defaultSize": "medium"
@@ -60,10 +60,10 @@
     "identity"
   ],
   "webApplicationInfo": {
-    "id": "ba527606-a94b-46fa-812c-93e698dbe453",
-    "resource": "api://m365-list-emails-ace-dev.azurewebsites.net/ba527606-a94b-46fa-812c-93e698dbe453"
+    "id": "56ddbfdc-910c-42e0-ac7e-d0f40155c36f",
+    "resource": "api://listemails.ngrok.io/56ddbfdc-910c-42e0-ac7e-d0f40155c36f"
   },
   "validDomains": [
-    "m365-list-emails-ace-dev.azurewebsites.net"
+    "listemails.ngrok.io"
   ]
 }

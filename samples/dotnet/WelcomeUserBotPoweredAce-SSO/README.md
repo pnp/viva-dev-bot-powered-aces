@@ -1,7 +1,7 @@
-﻿# Bot-Powered-ACE Welcome User with Microsoft Entra ID with Bot Framework Magic Code
+﻿# Bot-Powered-ACE Welcome User with Microsoft Entra ID Single Sign-on
 
 This sample shows how to create a Bot Powered Adaptive Card Extension (ACE) for Viva Connection Dashboard to authenticate the current user and to retrieve the user name.
-User's authentication relies on Microsoft Entra ID and is configured to use the Bot Framework Magic Code.
+User's authentication relies on Microsoft Entra ID and is configured to have automatic Single Sign-on of the user.
 
 Here you can see CardView of the ACE to sign-in the current user:
 
@@ -33,8 +33,7 @@ This bot has been created using [Bot Framework v.4.22.9 or higher](https://dev.b
 
 | Version | Date             | Comments        |
 | ------- | ---------------- | --------------- |
-| 1.1     | November 09, 2024   | Added support for automatic Magic Code in Microsoft Entra ID |
-| 1.0     | Marco 06, 2024   | Initial release |
+| 1.0     | November 09, 2024   | Initial release |
 
 ## Disclaimer
 

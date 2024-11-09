@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <UserSecretsId>f7685d13-e5e0-4d56-8b0e-5890b89c20ef</UserSecretsId>
+    <UserSecretsId>1097c69f-1574-4c72-a035-cff5901f82b0</UserSecretsId>
+    <RootNamespace>WelcomeUserBotPoweredAce</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AdaptiveCards.Templating" Version="1.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
     <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.22.9" />
-    <PackageReference Include="Microsoft.Graph" Version="5.48.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.3.0" />
   </ItemGroup>
 
     <ItemGroup>
@@ -18,7 +18,5 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-    <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

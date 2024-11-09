@@ -1,11 +1,11 @@
 [{
-  "name": "pnp-viva-dev-bot-powered-aces-welcome-bot-powered-ace",
+  "name": "pnp-viva-dev-bot-powered-aces-welcome-bot-powered-ace-sso",
   "source": "pnp",
-  "title": "Secured Bot Powered ACE",
-  "shortDescription": "Viva Connection Adaptive Card Extension (ACE) that shows how to authenticate the current user and read the User Principal Name via Microsoft Graph using a Bot Powered ACE implemented with .NET.",
+  "title": "Secured Bot Powered ACE with SSO",
+  "shortDescription": "Viva Connection Adaptive Card Extension (ACE) that shows how to authenticate the current user and read the User Principal Name via Microsoft Graph using a Bot Powered ACE implemented with .NET and Microsoft Entra ID Single Sign-on.",
   "url": "https://github.com/pnp/viva-dev-bot-powered-aces/tree/main/samples/dotnet/WelcomeUserBotPoweredAce",
   "longDescription": [
-    "Viva Connection Adaptive Card Extension (ACE) that shows how to authenticate the current user and read the User Principal Name via Microsoft Graph using a Bot Powered ACE implemented with .NET."
+    "Viva Connection Adaptive Card Extension (ACE) that shows how to authenticate the current user and read the User Principal Name via Microsoft Graph using a Bot Powered ACE implemented with .NET and Microsoft Entra ID Single Sign-on."
   ],
   "creationDateTime": "2024-03-06",
   "updateDateTime": "2024-11-09",

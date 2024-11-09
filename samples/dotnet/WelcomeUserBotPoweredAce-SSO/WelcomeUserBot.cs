@@ -26,24 +26,25 @@ namespace WelcomeUserBotPoweredAce
 
         private readonly IConfiguration _configuration;
         private readonly ILogger<WelcomeUserBot> _logger;
+        private readonly IStorage _storage;
 
         private static ConcurrentDictionary<string, CardViewResponse> cardViews = new ConcurrentDictionary<string, CardViewResponse>();
-        private static ConcurrentDictionary<string, QuickViewResponse> quickViews = new ConcurrentDictionary<string, QuickViewResponse>();
 
         private static string HomeCardView_ID = "HOME_CARD_VIEW";
         private static string ErrorCardView_ID = "ERROR_CARD_VIEW";
         private static string SignInCardView_ID = "SIGN_IN_CARD_VIEW";
         private static string SignedOutCardView_ID = "SIGNED_OUT_CARD_VIEW";
-        private static string SignInQuickView_ID = "SIGN_IN_QUICK_VIEW";
 
         public WelcomeUserBot(
             IConfiguration configuration,
+            IStorage storage,
             ILogger<WelcomeUserBot> logger) : base()
         {
             this._configuration = configuration;
             this._connectionName = configuration["ConnectionName"];
 
             this._logger = logger;
+            this._storage = storage;
 
             // ************************************
             // Add the CardViews
@@ -105,19 +106,8 @@ namespace WelcomeUserBotPoweredAce
                     Text = "Please, sign in ..."
                 },
                 new CardButtonComponent()
-                {
-                    Id = "CompleteSignInButton",
-                    Title = "Complete sign in",
-                    Action = new QuickViewAction()
-                    {
-                        Parameters = new QuickViewActionParameters()
-                        {
-                            View = SignInQuickView_ID
-                        }
-                    }
-                }
             );
-            signInCardViewResponse.CardViewParameters.CardViewType = "signIn";
+            signInCardViewResponse.CardViewParameters.CardViewType = "signInSso";
             signInCardViewResponse.ViewId = SignInCardView_ID;
 
             cardViews.TryAdd(signInCardViewResponse.ViewId, signInCardViewResponse);
@@ -183,72 +173,12 @@ namespace WelcomeUserBotPoweredAce
             errorCardViewResponse.ViewId = ErrorCardView_ID;
 
             cardViews.TryAdd(errorCardViewResponse.ViewId, errorCardViewResponse);
-
-            // ************************************
-            // Add the Quick Views
-            // ************************************
-
-            // Complete Sign In Quick View
-            QuickViewResponse signInQuickViewResponse = new QuickViewResponse();
-            signInQuickViewResponse.Title = "Sign In";
-            signInQuickViewResponse.Template = new AdaptiveCard("1.5");
-
-            AdaptiveContainer signInContainer = new AdaptiveContainer();
-            signInContainer.Separator = true;
-
-            AdaptiveTextBlock signInTitleText = new AdaptiveTextBlock
-            {
-                Text = "Complete Sign In",
-                Color = AdaptiveTextColor.Dark,
-                Weight = AdaptiveTextWeight.Bolder,
-                Size = AdaptiveTextSize.Medium,
-                Wrap = true,
-                MaxLines = 1,
-                Spacing = AdaptiveSpacing.None
-            };
-            signInContainer.Items.Add(signInTitleText);
-
-            AdaptiveTextBlock signInDescriptionText = new AdaptiveTextBlock
-            {
-                Text = "Input the magic code from Microsoft Entra ID to complete sign in.",
-                Color = AdaptiveTextColor.Dark,
-                Size = AdaptiveTextSize.Default,
-                Wrap = true,
-                MaxLines = 6,
-                Spacing = AdaptiveSpacing.None
-            };
-            signInContainer.Items.Add(signInDescriptionText);
-
-            AdaptiveNumberInput signInMagicCodeInputField = new AdaptiveNumberInput
-            {
-                Placeholder = "Enter Magic Code",
-                Id = "magicCode"
-            };
-            signInContainer.Items.Add(signInMagicCodeInputField);
-
-            AdaptiveSubmitAction signInSubmitAction = new AdaptiveSubmitAction
-            {
-                Title = "Submit",
-                Id = "SubmitMagicCode"
-            };
-            signInQuickViewResponse.Template.Actions.Add(signInSubmitAction);
-
-            signInQuickViewResponse.Template.Body.Add(signInContainer);
-            signInQuickViewResponse.ViewId = SignInQuickView_ID;
-
-            quickViews.TryAdd(signInQuickViewResponse.ViewId, signInQuickViewResponse);
         }
 
         protected async override Task<CardViewResponse> OnSharePointTaskGetCardViewAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
         {
-            JObject aceData = aceRequest.Data as JObject;
-            string magicCode = null;
-            if (aceData["magicCode"] != null)
-            {
-                magicCode = aceData["magicCode"].ToString();
-            }
             // Check to see if the user has already signed in
-            var (displayName, upn) = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
+            var (displayName, upn) = await GetAuthenticatedUser(magicCode: null, turnContext, cancellationToken);
             if (displayName != null && upn != null)
             {
                 var homeCardView = cardViews[HomeCardView_ID];
@@ -278,12 +208,6 @@ namespace WelcomeUserBotPoweredAce
             return cardViews[ErrorCardView_ID];
         }
 
-        protected async override Task<QuickViewResponse> OnSharePointTaskGetQuickViewAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
-        {
-            var nextQuickViewId = ((JObject)aceRequest.Data)["viewId"].ToString();
-            return quickViews[nextQuickViewId];
-        }
-
         protected async override Task<BaseHandleActionResponse> OnSharePointTaskHandleActionAsync(ITurnContext<IInvokeActivity> turnContext, AceRequest aceRequest, CancellationToken cancellationToken)
         {
             if (turnContext != null)
@@ -298,24 +222,7 @@ namespace WelcomeUserBotPoweredAce
             if (actionParameters != null)
             {
                 var actionId = actionParameters["id"].ToString();
-                if (actionId == "SubmitMagicCode")
-                {
-                    var magicCode = actionParameters["data"]["magicCode"].ToString();
-                    var (displayName, upn) = await GetAuthenticatedUser(magicCode, turnContext, cancellationToken);
-
-                    var homeCardView = cardViews[HomeCardView_ID];
-                    if (homeCardView != null && displayName != null && upn != null)
-                    {
-                        ((homeCardView.CardViewParameters.Header.ToList())[0] as CardTextComponent).Text = $"Welcome {displayName}!";
-                        ((homeCardView.CardViewParameters.Body.ToList())[0] as CardTextComponent).Text = $"Your UPN is: {upn}";
-
-                        return new CardViewHandleActionResponse
-                        {
-                            RenderArguments = homeCardView
-                        };
-                    }
-                }
-                else if (actionId == "SignOut")
+                if (actionId == "SignOut")
                 {
                     await SignOutUser(turnContext, cancellationToken);
 
@@ -344,6 +251,12 @@ namespace WelcomeUserBotPoweredAce
             {
                 RenderArguments = cardViews[ErrorCardView_ID]
             };
+        }
+
+        protected override Task OnSignInInvokeAsync(ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)
+        {
+            SharePointSSOTokenExchangeMiddleware sso = new SharePointSSOTokenExchangeMiddleware(_storage, _connectionName);
+            return sso.OnTurnAsync(turnContext, cancellationToken);
         }
 
         private async Task<(string displayName, string upn)> GetAuthenticatedUser(string magicCode, ITurnContext<IInvokeActivity> turnContext, CancellationToken cancellationToken)

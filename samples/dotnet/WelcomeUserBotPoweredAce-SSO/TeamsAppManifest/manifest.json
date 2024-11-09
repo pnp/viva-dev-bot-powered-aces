@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.14/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.1",
+  "id": "fff49e21-925f-4dc9-be03-2680c4783091",
+  "packageName": "secured.botpoweredace",
+  "developer": {
+    "name": "PiaSys.com",
+    "websiteUrl": "https://www.piasys.com/",
+    "privacyUrl": "http://piasys.com/privacy/",
+    "termsOfUseUrl": "https://www.piasys.com/terms-of-use/",
+    "mpnId": "1075379"
+  },
+  "name": {
+    "short": "Welcome User Bot Powered ACE",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user"
+  },
+  "description": {
+    "short": "Basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user",
+    "full": "This is a basic sample of a Bot Powered ACE for Microsoft Viva Connections Dashboard to authenticate the current user"
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "fff49e21-925f-4dc9-be03-2680c4783091",
+      "needsChannelSelector": false,
+      "isNotificationOnly": false,
+      "supportsCalling": false,
+      "supportsVideo": false,
+      "supportsFiles": false,
+      "scopes": [
+        "team",
+        "personal",
+        "groupchat"
+      ]
+    }
+  ],
+  "dashboardCards": [
+    {
+      "id": "fff49e21-925f-4dc9-be03-2680c4783091",
+      "displayName": "Welcome",
+      "description": "Bot Powered ACE to welcome the current user",
+      "icon": {
+        "officeUIFabricIconName": "Cafe"
+      },
+      "contentSource": {
+        "sourceType": "bot",
+        "botConfiguration": {
+          "botId": "fff49e21-925f-4dc9-be03-2680c4783091"
+        }
+      },
+      "defaultSize": "large"
+    }
+  ],
+  "webApplicationInfo": {
+    "id": "fff49e21-925f-4dc9-be03-2680c4783091",
+    "resource": "api://welcome-bot-powered-ace.ngrok.io/fff49e21-925f-4dc9-be03-2680c4783091"
+  },
+  "permissions": [
+    "identity"
+  ],
+  "validDomains": [
+    "welcome-bot-powered-ace.ngrok.io"
+  ]
+}

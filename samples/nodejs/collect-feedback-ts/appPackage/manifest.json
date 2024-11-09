@@ -1,0 +1,77 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.17",
+    "version": "1.0.0",
+    "id": "${{TEAMS_APP_ID}}",
+    "developer": {
+        "name": "PiaSys.com",
+        "websiteUrl": "https://www.piasys.com/",
+        "privacyUrl": "https://www.piasys.com/privacy/",
+        "termsOfUseUrl": "https://www.piasys.com/terms-of-use/",
+        "mpnId": "1075379"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "collect-feedback-ts-${{APP_NAME_SUFFIX}}",
+        "full": "Basic sample of a Bot Powered ACE to collect user's feedback"
+    },
+    "description": {
+        "short": "Basic sample of a Bot Powered ACE to collect user's feedback",
+        "full": "Basic sample of how to use the latest release of the Bot Framework SDK to build a Bot Powered ACE for Microsoft Viva Connections Dashboard to collect user's feedback"
+        },
+    "accentColor": "#FFFFFF",
+    "bots": [
+        {
+            "botId": "${{BOT_ID}}",
+            "scopes": [
+                "personal",
+                "team",
+                "groupChat"
+            ],
+            "supportsFiles": false,
+            "isNotificationOnly": false,
+            "commandLists": [
+                {
+                  "scopes": ["personal", "team", "groupChat"],
+                  "commands": [
+                      {
+                          "title": "Hi",
+                          "description": "Say hi to the bot."
+                      }
+                  ]
+                }
+            ]
+        }
+    ],
+    "dashboardCards": [
+      {
+        "id": "${{BOT_ID}}",
+        "pickerGroupId": "8cd406cc-7a66-42b5-bda5-9576abe7a818",
+        "displayName": "Collect Feedaback TTK",
+        "description": "Bot Powered ACE to collect user's feedback",
+        "icon": {
+          "officeUIFabricIconName": "Feedback"
+        },
+        "contentSource": {
+          "sourceType": "bot",
+          "botConfiguration": {
+            "botId": "${{BOT_ID}}"
+          }
+        },
+        "defaultSize": "medium"
+      }
+    ],
+    "composeExtensions": [],
+    "configurableTabs": [],
+    "staticTabs": [],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "validDomains": [
+        "${{BOT_DOMAIN}}"
+    ]
+}
