@@ -1,0 +1,79 @@
+[{
+  "name": "pnp-viva-dev-bot-powered-aces-botpowered-basicace-collect-feedback-ts",
+  "source": "pnp",
+  "title": "Collect Feedback Bot Powered ACE with Teams Toolkit",
+  "shortDescription": "Viva Connection Adaptive Card Extension (ACE) that shows how to collect feedback from users using a Bot-Powered-ACE implemented with Microsoft Teams Toolkit and TypeScript.",
+  "url": "https://github.com/pnp/viva-dev-bot-powered-aces/tree/main/samples/dotnet/CollectFeedbackBotPoweredAce",
+  "longDescription": [
+    "Viva Connection Adaptive Card Extension (ACE) that shows how to collect feedback from users using a Bot-Powered-ACE implemented with Microsoft Teams Toolkit and TypeScript."
+  ],
+  "creationDateTime": "2024-11-11",
+  "updateDateTime": "2024-11-11",
+  "products": [
+    "SharePoint",
+    "Viva"
+  ],
+  "metadata": [
+    {
+      "key": "BOT-FRAMEWORK-VERSION",
+      "value": "bot40"
+    }
+  ],
+  "thumbnails": [
+    {
+      "type": "image",
+      "order": 100,
+      "url": "https://raw.githubusercontent.com/pnp/viva-dev-bot-powered-aces/main/samples/nodejs/collect-feedback-ts/assets/feedback-ace-01.png",
+      "alt": "Preview of the main CardView to collect feedback from user"
+    },
+    {
+      "type": "image",
+      "order": 200,
+      "url": "https://raw.githubusercontent.com/pnp/viva-dev-bot-powered-aces/main/samples/nodejs/collect-feedback-ts/assets/feedback-ace-02.png",
+      "alt": "Preview of the CardView showing the feedback collected from user"
+    },
+    {
+      "type": "image",
+      "order": 300,
+      "url": "https://raw.githubusercontent.com/pnp/viva-dev-bot-powered-aces/main/samples/nodejs/collect-feedback-ts/assets/feedback-ace-03.png",
+      "alt": "Preview of the main QuickView to show additional information to the user"
+    }
+
+  ],
+  "authors": [
+    {
+      "gitHubAccount": "PaoloPia",
+      "company": "PiaSys.com",
+      "pictureUrl": "https://github.com/paolopia.png",
+      "name": "Paolo Pialorsi",
+      "twitter": "PaoloPia"
+    }
+  ],
+  "references": [
+    {
+      "name": "Viva Connections Extensibility guidance",
+      "description": "Adaptive Card Extensions are client-side components that run in the context of a SharePoint page.",
+      "url": "https://aka.ms/viva/connections/extensibility"
+    },
+    {
+      "name": "Building your first Bot Powered Adaptive Card Extension",
+      "description": "Learn how to build a Bot Powered Adaptive Card Extension from scratch.",
+      "url": "https://learn.microsoft.com/en-us/sharepoint/dev/spfx/viva/bot-powered/building-your-first-bot-powered-ace"
+    },
+    {
+      "name": "Authentication and Authorization in Bot Powered Adaptive Card Extensions",
+      "description": "Learn how to implement Authentication and Authorization in a Bot Powered Adaptive Card Extension.",
+      "url": "https://learn.microsoft.com/en-us/sharepoint/dev/spfx/viva/bot-powered/authn-and-authz-in-bot-powered-aces"
+    },
+    {
+      "name": "Adaptive Card Documentation",
+      "description": "Detailed documentation on Adaptive Cards including the Adaptive Card designer.",
+      "url": "https://adaptivecards.io/"
+    }, 
+    {
+      "name": "Adaptive Card Extension Design Guidance",
+      "description": "Design guidance for laying out Adaptive Card Extensions.",
+      "url": "https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/design/design-intro"
+    }
+  ]
+}]
