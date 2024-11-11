@@ -3,7 +3,7 @@
   "source": "pnp",
   "title": "Collect Feedback Bot Powered ACE with Teams Toolkit",
   "shortDescription": "Viva Connection Adaptive Card Extension (ACE) that shows how to collect feedback from users using a Bot-Powered-ACE implemented with Microsoft Teams Toolkit and TypeScript.",
-  "url": "https://github.com/pnp/viva-dev-bot-powered-aces/tree/main/samples/dotnet/CollectFeedbackBotPoweredAce",
+  "url": "https://github.com/pnp/viva-dev-bot-powered-aces/tree/main/samples/nodejs/collect-feedback-ts",
   "longDescription": [
     "Viva Connection Adaptive Card Extension (ACE) that shows how to collect feedback from users using a Bot-Powered-ACE implemented with Microsoft Teams Toolkit and TypeScript."
   ],
